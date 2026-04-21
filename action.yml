@@ -1,0 +1,30 @@
+name: 'AI Context Linter'
+description: 'Lint and validate AI coding context files (CLAUDE.md, .cursorrules, AGENTS.md) against best practices. Catch security issues, structural problems, and optimization opportunities before they reach your AI agent.'
+branding:
+  icon: 'check-circle'
+  color: 'green'
+inputs:
+  files:
+    description: 'Glob pattern for context files to lint. Default: common AI context file names.'
+    required: false
+    default: '**/{CLAUDE,CLAUDE.md,.claude,.cursorrules,.cursorrules.json,AGENTS,AGENTS.md,COPILOT.md,.copilot,.windsurfrules,CONVENTIONS.md,.clinerules}'
+  config:
+    description: 'Path to custom config file (.ai-context-linter.yml)'
+    required: false
+    default: ''
+  fail-on-warnings:
+    description: 'Fail the action on warnings (not just errors)'
+    required: false
+    default: 'false'
+  max-tokens:
+    description: 'Maximum recommended token count per file (warns above this)'
+    required: false
+    default: '4000'
+outputs:
+  issues-found:
+    description: 'Number of issues found (errors + warnings)'
+  files-checked:
+    description: 'Number of files checked'
+runs:
+  using: 'node20'
+  main: 'dist/index.js'
